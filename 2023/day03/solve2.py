@@ -28,7 +28,6 @@ for i in range(len(t)):
                                 sright += t[i+ii][index]
                                 index+=1
                             myset.add(int(sleft + car + sright))
-                            print(myset)
             if len(myset)==2:
                 mul=1
                 for n in myset:
