@@ -9,15 +9,13 @@ for line in input.split('\n'):
     pts = data[0].strip().split(' ')
     nbrs = data[1].strip().split(' ')
 
-    first = False
     score=0
     for nbr in nbrs:
         for pt in pts:
             if pt.isdigit() and nbr.isdigit():
-                if pt == nbr and not first:
+                if pt == nbr and score==0:
                     score = 1
-                    first=True
-                elif pt == nbr and first:
+                elif pt == nbr:
                     score*=2 
     total+=score
 print(total)
