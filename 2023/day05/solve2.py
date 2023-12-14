@@ -7,7 +7,7 @@ maps=[[] for i in range(7)]
 
 dic = {}
 
-arr=-1
+a=-1
 for line in input.split('\n'):
     if line.startswith("seeds"):
         seeds=line.split(':')[1].strip().split(' ')
@@ -15,11 +15,10 @@ for line in input.split('\n'):
         sline = line.split(' ')
         #src dest range
         #seed to soil (seed = src, soil = dest)
-        maps[arr].append([int(sline[1]),int(sline[0]),int(sline[2])])
+        maps[a].append([int(sline[1]),int(sline[0]),int(sline[2])])
     elif len(line.strip())==0:
-        arr+=1
+        a+=1
 
-locations=[]
 
 def lookup(_map, val):
     for i in range(len(_map)):
@@ -28,23 +27,34 @@ def lookup(_map, val):
             return _map[i][2] + _map[i][1] - diff
     return val
 
-for i in range(0,len(seeds),2):
-    if i+1<len(seeds):
-        for j in range(int(seeds[i+1])-1, -1, -1):
-            if dic.get(str(int(seeds[i])+j))!=None:
-                continue
-            else:
-                seed = int(seeds[i]) + j
-                soil = lookup(maps[0], seed)
-                fert = lookup(maps[1], soil)
-                water = lookup(maps[2], fert)
-                light = lookup(maps[3], water)
-                temp = lookup(maps[4], light)
-                hum = lookup(maps[5], temp)
-                loc = lookup(maps[6], hum)
-                locations.append(loc)
-                dic[str(int(seeds[i])+j)]=loc
+def location(maps, seed):
+    for i in range(7):
+        seed = lookup(maps[i], seed)
+    return seed
+
+def compute_range(maps, s_min, s_max):
+    loc_max = location(maps, s_max)
+    loc_min = location(maps, s_min)
+
+    print(f's_min = {s_min} s_max = {s_max} loc_max = {loc_max} loc_min = {loc_min}')
+
+    if loc_max-loc_min==s_max-s_min:
+        return loc_min
+    elif s_max-s_min==0:
+        return loc_min
+    else:
+        s_med = int((s_max + s_min)/2)
+        return min(compute_range(maps, s_min, s_med), compute_range(maps, s_med, s_max))
 
 
-locations.sort()
-print(locations[0])
+s=0
+mins = []
+while s+1<len(seeds):
+    r = int(seeds[s+1]) - 1 
+    seed_min = int(seeds[s])
+    seed_max = seed_min + r
+
+    mins.append(compute_range(maps, seed_min, seed_max))
+    s+=2
+
+print(min(mins))
