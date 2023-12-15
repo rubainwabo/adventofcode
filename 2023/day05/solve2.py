@@ -1,11 +1,12 @@
 import sys
+import time
+
+start = time.time()
 
 
 input = open(sys.argv[1]).read().strip()
 
 maps=[[] for i in range(7)]
-
-dic = {}
 
 a=-1
 for line in input.split('\n'):
@@ -32,19 +33,26 @@ def location(maps, seed):
         seed = lookup(maps[i], seed)
     return seed
 
-def compute_range(maps, s_min, s_max):
+"""
+                                        OBSERVATION :
+
+Sometimes [seed_min, seed_max] with a range x will be mapped to [location_min, location_max] with
+the same range x.
+
+If that's the case we can skip all the calculations and just return location_min as the minimal location of [seed_min, seed_max].
+Using binary search can help speeding up the process.
+"""
+
+def compute_interval(maps, s_min, s_max):
     loc_max = location(maps, s_max)
     loc_min = location(maps, s_min)
 
-    print(f's_min = {s_min} s_max = {s_max} loc_max = {loc_max} loc_min = {loc_min}')
-
-    if loc_max-loc_min==s_max-s_min:
-        return loc_min
-    elif s_max-s_min==0:
+    if loc_max-loc_min==s_max-s_min or s_max-s_min==0:
         return loc_min
     else:
         s_med = int((s_max + s_min)/2)
-        return min(compute_range(maps, s_min, s_med), compute_range(maps, s_med, s_max))
+        loc_med = location(maps, s_med)
+        return min(loc_med, compute_interval(maps, s_min, s_med-1), compute_interval(maps, s_med+1, s_max))
 
 
 s=0
@@ -54,7 +62,8 @@ while s+1<len(seeds):
     seed_min = int(seeds[s])
     seed_max = seed_min + r
 
-    mins.append(compute_range(maps, seed_min, seed_max))
+    mins.append(compute_interval(maps, seed_min, seed_max))
     s+=2
 
-print(min(mins))
+end = time.time()
+print(f'result : {min(mins)} in {end-start} seconds')
