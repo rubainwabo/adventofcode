@@ -13,10 +13,10 @@ for line in input.split('\n'):
     if line.startswith("seeds"):
         seeds=line.split(':')[1].strip().split(' ')
     elif len(line.strip())!=0 and line[0].isdigit():
-        sline = line.split(' ')
+        x, y, z = line.split(' ')
         #src dest range
         #seed to soil (seed = src, soil = dest)
-        maps[a].append([int(sline[1]),int(sline[0]),int(sline[2])])
+        maps[a].append([int(y),int(x),int(z)])
     elif len(line.strip())==0:
         a+=1
 
