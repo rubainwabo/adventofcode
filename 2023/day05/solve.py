@@ -26,22 +26,11 @@ def lookup(_map, val):
             return _map[i][2] + _map[i][1] - diff
     return val
 
-"""
 for i in range(len(seeds)):
     r = int(seeds[i])
     for j in range(7):
         r = lookup(maps[j], r)
     locations.append(r)
-"""
-for i in range(0,len(seeds),2):
-    if i+1<len(seeds):
-        for j in range(int(seeds[i+1])-1, -1, -1):
-            r = int(seeds[i])+j
-            print(f'seed = {r}', end='')
-            for k in range(7):
-                r = lookup(maps[k], r)
-            print(f' location = {r}')
-            locations.append(r)
 
 locations.sort()
 print(locations[0])
