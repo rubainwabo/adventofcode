@@ -22,8 +22,7 @@ locations=[]
 def lookup(_map, val):
     for i in range(len(_map)):
         if _map[i][0]<=val<=_map[i][0]+_map[i][2]:
-            diff = _map[i][0]+_map[i][2] - val
-            return _map[i][2] + _map[i][1] - diff
+            return _map[i][1] + val - _map[i][0]
     return val
 
 for i in range(len(seeds)):
