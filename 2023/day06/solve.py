@@ -1,4 +1,3 @@
-from functools import reduce
 import sys
 
 
@@ -16,16 +15,15 @@ for i in range(len(d)):
     if d[i].isdigit():
         D.append(int(d[i]))
 
-w = []
-
+m=1
 for i in range(len(T)):
     x = T[i]
     n=0
     for xx in range(1, x):
         if xx*(x-xx)>D[i]:
             n+=1
-    w.append(n)
-print(reduce(lambda x,y: x*y, w))
+    m*=n
+print(m)
 
     
 
