@@ -21,21 +21,34 @@ def get_hand(x):
     c = [0]*14
     for xx in x:
         c[d[xx]]+=1
+    j = c[13]
+    c[13]=0 
     c.sort()
     c.reverse()
-    if c[0]==5:
+    if c[0]==5 or j==5:
         return 7
     elif c[0]==4:
+        if j==1: return 7
         return 6
     elif c[0]==3 and c[1]==2:
         return 5
     elif c[0]==3:
+        if j==2: return 7
+        elif j==1: return 6
         return 4
     elif c[0]==2 and c[1]==2:
+        if j==1: return 5
         return 3
     elif c[0]==2:
+        if j==3: return 7
+        elif j==2: return 6
+        elif j==1: return 4
         return 2
     else:
+        if j==4: return 7
+        elif j==3: return 6
+        elif j==2: return 4
+        elif j==1: return 2
         return 1 
 
 def compare(x,y):
