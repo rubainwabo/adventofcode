@@ -13,7 +13,6 @@ for o in rest.split('\n'):
 
     D[s]=[l, r]
 
-n=0
 idx=0
 f='AAA'
 while f!='ZZZ':
@@ -22,5 +21,4 @@ while f!='ZZZ':
     else:
         f = D[f][1]
     idx+=1
-    n+=1
-print(n)
+print(idx)
