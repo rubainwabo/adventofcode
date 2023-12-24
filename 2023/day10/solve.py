@@ -42,7 +42,40 @@ def find_next():
         return tuple((i, j+1))
     return None
 s = find_next()
+i=s[0]
+j=s[1]
+s=M[i][j]
 n=0
 while True:
     if s=='S':
         break
+    elif s=='L':
+        if i-1>=0 and 1-D[M[i-1][j]][0]==0:
+            s=M[i-1][j]
+        elif j+1<lenJ and 1-D[M[i][j+1]][3]==0:
+            s=M[i][j+1]
+    elif s=='-':
+        if j-1>=0 and 1+D[M[i][j-1]][2]==0:
+            s=M[i][j-1]
+        elif j+1<lenJ and 1-D[M[i][j+1]][3]==0:
+            s=M[i][j+1]
+    elif s=='F':
+        if i+1<lenI and 1+D[M[i+1][j]][3]==0:
+            s=M[i+1][j]
+        elif j+1<lenJ and 1-D[M[i][j+1]][1]==0:
+            s=M[i][j+1]
+    elif s=='J':
+        if i-1>=0 and 1-D[M[i-1][j]][0]==0:
+            s=M[i-1][j]
+        elif j-1>=0 and 1+D[M[i][j-1]][2]==0:
+            s=M[i][j-1]
+    elif s=='|':
+        if i-1>=0 and 1-D[M[i-1][j]][0]==0:
+            s=M[i-1][j]
+        elif i+1<lenI and 1+D[M[i+1][j]][1]==0:
+            s=M[i+1][j]
+    elif s=='7':
+        if i+1<lenI and 1+D[M[i+1][j]][1]==0:
+            s=M[i+1][j]
+        elif j-1>=0 and 1+D[M[i][j-1]][2]==0:
+            s=M[i][j-1]
