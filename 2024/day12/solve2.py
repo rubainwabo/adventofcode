@@ -82,7 +82,7 @@ class Region:
             if top_point == None:
                 return 1
             else:
-                if top_point.get_direction(index) == 1 or top_point.get_direction(index) == -1:
+                if top_point.get_direction(index) in [-1, 1]:
                     return -1
                 return 1
         else :
@@ -90,7 +90,7 @@ class Region:
             if left_point == None:
                 return 1
             else:
-                if left_point.get_direction(index) == 1 or left_point.get_direction(index) == -1:
+                if left_point.get_direction(index) in [-1, 1]:
                     return -1
                 return 1
 
