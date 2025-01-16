@@ -12,21 +12,9 @@ class Robot:
 
     def move_100_seconds(self, size):
         w, l = size
-        d_x = self.pos[0] + 100 * self.vel[0]
-        d_y = self.pos[1] + 100 * self.vel[1]
-        if d_x < 0:
-            new_x = d_x % (-1 * l)
-            if new_x < 0:
-                new_x += l
-        else:
-            new_x = d_x % l
-        if d_y < 0:
-            new_y = d_y % (-1 * w)
-            if new_y < 0:
-                new_y += w            
-        else:
-            new_y = d_y % w
-        self.pos = (new_x, new_y)
+        d_x = (self.pos[0] + 100 * self.vel[0]) % l
+        d_y = (self.pos[1] + 100 * self.vel[1]) % w           
+        self.pos = (d_x, d_y)
     
     def getPosition(self):
         return self.pos

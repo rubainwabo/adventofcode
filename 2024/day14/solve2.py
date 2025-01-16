@@ -10,39 +10,15 @@ class Robot:
 
     def move(self, size):
         w, l = size
-        d_x = self.pos[0] + self.vel[0]
-        d_y = self.pos[1] + self.vel[1]
-        if d_x < 0:
-            new_x = d_x % (-1 * l)
-            if new_x < 0:
-                new_x += l
-        else:
-            new_x = d_x % l
-        if d_y < 0:
-            new_y = d_y % (-1 * w)
-            if new_y < 0:
-                new_y += w            
-        else:
-            new_y = d_y % w
-        self.pos = (new_x, new_y)
+        d_x = (self.pos[0] + self.vel[0]) % l
+        d_y = (self.pos[1] + self.vel[1]) % w          
+        self.pos = (d_x, d_y)
 
     def move_x_seconds(self, size, x_seconds):
         w, l = size
-        d_x = self.pos[0] + x_seconds * self.vel[0]
-        d_y = self.pos[1] + x_seconds * self.vel[1]
-        if d_x < 0:
-            new_x = d_x % (-1 * l)
-            if new_x < 0:
-                new_x += l
-        else:
-            new_x = d_x % l
-        if d_y < 0:
-            new_y = d_y % (-1 * w)
-            if new_y < 0:
-                new_y += w            
-        else:
-            new_y = d_y % w
-        self.pos = (new_x, new_y)
+        d_x = (self.pos[0] + x_seconds * self.vel[0]) % l
+        d_y = (self.pos[1] + x_seconds * self.vel[1]) % w           
+        self.pos = (d_x, d_y)
 
     def getPosition(self):
         return self.pos
@@ -66,7 +42,6 @@ class Main:
             vel = (int(n[2]), int(n[3]))
             robot = Robot(pos, vel)
             self.robots.append(robot)
-        #self.print_board()
     
     def fill_board(self):
         self.board = [[0 for _ in range(self.width)] for _ in range(self.height)]
